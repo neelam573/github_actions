@@ -1,0 +1,16 @@
+name: Java Installation workflow
+on:
+  pull_request:
+  issues:
+jobs:
+  JavaInstallationJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update and Install java
+        run: |
+          sudo apt update,
+          sudo apt install default-jdk
+
+      # Runs a set of commands using the runners shell
+      - name: Check java version
+        run: java --version
