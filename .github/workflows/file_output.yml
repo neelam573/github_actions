@@ -1,0 +1,26 @@
+name: file output practise
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    outputs:
+      filename: ${{ steps.file1.output.filename }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          version: 18
+      - name: Run a one-line script
+        id: file1
+        run: echo "filename=hello" >> "$GITHUB_OUTPUT"
+  deploy:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Output file content
+        run: echo "${{needs.build.outputs.filename}}"
